@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>참조은SF 기업 연혁 스토리</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600;700&family=Great+Vibes&display=swap" rel="stylesheet">
+
+  <style>
+    /* ✅ 한글 전용: GmarketSans 로드 */
+    @font-face {
+      font-family: 'GmarketSans';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansLight.woff') format('woff');
+      font-weight: 300;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'GmarketSans';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansMedium.woff') format('woff');
+      font-weight: 500;
+      font-style: normal;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: 'GmarketSans';
+      src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2001@1.1/GmarketSansBold.woff') format('woff');
+      font-weight: 700;
+      font-style: normal;
+      font-display: swap;
+    }
+
+    :root{
+      --ink:#2a2330;
+      --muted:#6e6577;
+      --brand:#7b3554;
+      --brand2:#b07a8f;
+      --line:rgba(123,53,84,.25);
+      --card:rgba(255,255,255,.92);
+      --glass:rgba(255,255,255,.14);
+      --shadow: 0 18px 45px rgba(0,0,0,.12);
+      --radius: 18px;
+    }
+
+    *{ box-sizing:border-box; margin:0; padding:0; }
+
+    body{
+      font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+      color:var(--ink);
+      background:#0f0f12;
+      line-height:1.6;
+    }
+
+    /* ✅ 한글만 GmarketSans 적용 */
+    :lang(ko){
+      font-family:"GmarketSans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+    :lang(ko) strong,
+    :lang(ko) p,
+    :lang(ko) a,
+    :lang(ko) li,
+    :lang(ko) button,
+    :lang(ko) span,
+    :lang(ko) h1,
+    :lang(ko) h2,
+    :lang(ko) h3{
+      font-family:"GmarketSans", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
+    }
+
+    a{ color:inherit; text-decoration:none; }
+
+    /* -----------------------------
+      ✅ 우측 하단 고정 홈 버튼 (크기 15% 확대 + 30px 위로 이동 + 깜빡임 효과)
+    ----------------------------- */
+    @keyframes emphasis-blink {
+      0%, 100% {
+        opacity: 1;
+        box-shadow: 0 18px 45px rgba(0,0,0,.18), 0 0 15px rgba(123,53,84, 0.4);
+      }
+      50% {
+        opacity: 0.7;
+        box-shadow: 0 18px 45px rgba(0,0,0,.18), 0 0 0 rgba(123,53,84, 0);
+      }
+    }
+
+    .home-fab{
+      position: fixed;
+      right: 18px;
+      bottom: 48px; 
+      z-index: 9999;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 12px 14px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.90);
+      border: 1px solid rgba(255,255,255,.35);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      color: #2b1f2a;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: -.2px;
+      transition: transform .18s ease, background .18s ease, box-shadow .18s ease;
+      user-select: none;
+      
+      transform: scale(1.15);
+      transform-origin: bottom right;
+
+      /* 깜빡임 애니메이션 */
+      animation: emphasis-blink 2s infinite ease-in-out;
+    }
+    .home-fab:hover{
+      /* 마우스를 올리면 애니메이션 멈춤 */
+      animation: none; 
+      transform: translateY(-2px) scale(1.15);
+      background: rgba(255,255,255,.96);
+      box-shadow: 0 22px 55px rgba(0,0,0,.22);
+    }
+    .home-fab:active{
+      transform: translateY(0) scale(1.15);
+    }
+    .home-fab .icon{
+      width: 18px;
+      height: 18px;
+      display:block;
+      color: var(--brand);
+      flex: 0 0 auto;
+    }
+    .home-fab .label{
+      display: inline-block;
+      line-height: 1;
+    }
+
+    /* 모바일에서 텍스트는 숨기고 아이콘만 보이게 */
+    @media (max-width: 480px){
+      .home-fab{ padding: 12px; gap: 0; }
+      .home-fab .label{ display:none; }
+    }
+
+    /* -----------------------------
+      공통 배경 섹션 (✅ 들판+하늘)
+    ----------------------------- */
+    .bg-section{
+      position:relative;
+      overflow:hidden;
+      color:#fff;
+    }
+    .bg-section::before{
+      content:"";
+      position:absolute; inset:0;
+      background:
+        linear-gradient(180deg,
+          rgba(15,15,18,.40) 0%,
+          rgba(15,15,18,.18) 45%,
+          rgba(15,15,18,.55) 100%
+        ),
+        url("https://images.unsplash.com/photo-1500382017468-9049fed747ef?auto=format&fit=crop&w=2400&q=80");
+      background-size:cover;
+      background-position:center;
+      transform:scale(1.02);
+      filter:saturate(1.08) contrast(1.02);
+    }
+    .bg-section::after{
+      content:"";
+      position:absolute; inset:-20%;
+      background:
+        radial-gradient(circle at 50% 30%, rgba(255,255,255,.22) 0%, rgba(255,255,255,0) 55%),
+        radial-gradient(circle at 20% 80%, rgba(176,122,143,.18) 0%, rgba(176,122,143,0) 60%);
+      pointer-events:none;
+    }
+
+    .container{
+      position:relative;
+      width:min(1120px, calc(100% - 40px));
+      margin:0 auto;
+    }
+
+    /* -----------------------------
+      HERO
+    ----------------------------- */
+    .hero{
+      padding:80px 0 70px;
+    }
+    .hero-grid{
+      display:grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap:28px;
+      align-items:end;
+    }
+    .hero h1{
+      font-family: "GmarketSans", system-ui, -apple-system, sans-serif;
+      font-weight: 700;
+      font-size: 54px;
+      letter-spacing: -1px;
+      line-height: 1.1;
+      text-shadow: 0 18px 45px rgba(0,0,0,.35);
+    }
+    .hero p{
+      margin-top:14px;
+      color:rgba(255,255,255,.88);
+      max-width:560px;
+      word-break:keep-all;
+      font-weight:400;
+    }
+    .hero-card{
+      background: rgba(255,255,255,.12);
+      border:1px solid rgba(255,255,255,.20);
+      backdrop-filter: blur(10px);
+      border-radius: var(--radius);
+      padding:18px 18px 16px;
+      box-shadow: var(--shadow);
+    }
+    .hero-card .label{
+      font-family:"Cormorant Garamond", serif;
+      letter-spacing:1px;
+      text-transform:uppercase;
+      font-size:12px;
+      color:rgba(255,255,255,.75);
+    }
+    .hero-card .value{
+      margin-top:10px;
+      font-size:15px;
+      color:rgba(255,255,255,.92);
+      word-break:keep-all;
+      font-weight:400;
+    }
+    .hero-divider{
+      margin-top:28px;
+      height:1px;
+      background: linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.35), rgba(255,255,255,0));
+    }
+
+    /* -----------------------------
+      흰색 섹션
+    ----------------------------- */
+    .white-section{
+      background: #f7f5f7;
+      padding:54px 0 70px;
+      position:relative;
+    }
+    .white-section::before{
+      content:"";
+      position:absolute;
+      top:-1px; left:0; right:0;
+      height:24px;
+      background: linear-gradient(180deg, rgba(15,15,18,.0), rgba(247,245,247,1));
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:34px;
+    }
+    .section-title .kicker{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      color:var(--brand);
+      font-weight:700;
+      letter-spacing:.8px;
+      text-transform:uppercase;
+      font-size:12px;
+    }
+    .section-title .kicker::before,
+    .section-title .kicker::after{
+      content:"";
+      width:56px; height:1px;
+      background: linear-gradient(90deg, rgba(123,53,84,0), rgba(123,53,84,.55), rgba(123,53,84,0));
+    }
+    .section-title h2{
+      margin-top:12px;
+      font-family:"Great Vibes", cursive;
+      font-size:54px;
+      font-weight:400;
+      color:#2b1f2a;
+      letter-spacing:.4px;
+    }
+    .section-title p{
+      margin-top:10px;
+      color:var(--muted);
+      word-break:keep-all;
+      font-weight:400;
+    }
+
+    /* -----------------------------
+      타임라인
+    ----------------------------- */
+    .timeline{
+      position:relative;
+      margin: 0 auto;
+      padding: 10px 0 0;
+    }
+    .timeline::before{
+      content:"";
+      position:absolute;
+      left:24px;
+      top:0;
+      bottom:0;
+      width:2px;
+      background: linear-gradient(180deg, rgba(123,53,84,.15), rgba(123,53,84,.45), rgba(123,53,84,.15));
+      border-radius:2px;
+    }
+
+    .timeline-item{
+      position:relative;
+      padding-left:74px;
+      margin-bottom:26px;
+    }
+    .dot{
+      position:absolute;
+      left:14px; top:12px;
+      width:22px; height:22px;
+      border-radius:999px;
+      background:#fff;
+      border:4px solid var(--brand);
+      box-shadow: 0 10px 22px rgba(123,53,84,.18);
+    }
+
+    .year-row{
+      display:flex;
+      align-items:baseline;
+      gap:12px;
+      margin-bottom:10px;
+    }
+    .year{
+      font-family:"Cormorant Garamond", serif;
+      font-size:34px;
+      font-weight:700;
+      color:var(--brand);
+      letter-spacing:.4px;
+      line-height:1;
+    }
+    .year-sub{
+      color:rgba(123,53,84,.65);
+      font-size:12px;
+      letter-spacing:1px;
+      text-transform:uppercase;
+    }
+
+    .card{
+      background: var(--card);
+      border:1px solid rgba(123,53,84,.12);
+      border-radius: var(--radius);
+      padding:18px 20px;
+      box-shadow: 0 16px 36px rgba(0,0,0,.08);
+      position:relative;
+      overflow:hidden;
+    }
+    .card::after{
+      content:"";
+      position:absolute;
+      inset:auto -20% -35% -20%;
+      height:140px;
+      background: radial-gradient(circle at 50% 0%, rgba(176,122,143,.22), rgba(176,122,143,0) 70%);
+      pointer-events:none;
+    }
+    .card ul{ list-style:none; }
+    .card li{
+      position:relative;
+      padding-left:16px;
+      margin:8px 0;
+      color:#3a2f38;
+      word-break:keep-all;
+      font-size:15px;
+      font-weight:400;
+    }
+    .card li::before{
+      content:"";
+      position:absolute;
+      left:0; top:10px;
+      width:6px; height:6px;
+      border-radius:999px;
+      background: linear-gradient(135deg, var(--brand), var(--brand2));
+      box-shadow: 0 8px 18px rgba(123,53,84,.22);
+    }
+
+    /* -----------------------------
+      하단 배경 섹션
+    ----------------------------- */
+    .footer-bg{
+      height: 250px;
+    }
+
+    /* -----------------------------
+      ✅ 스크롤 방향 애니메이션 (항상 반복)
+    ----------------------------- */
+    .reveal{
+      opacity: 0;
+      transform: translateY(0);
+      transition: opacity .7s ease, transform .7s ease;
+      will-change: opacity, transform;
+    }
+    .reveal.dir-down{ transform: translateY(22px); }
+    .reveal.dir-up{ transform: translateY(-22px); }
+    .reveal.is-visible{
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .stagger-1{ transition-delay: .05s; }
+    .stagger-2{ transition-delay: .12s; }
+    .stagger-3{ transition-delay: .18s; }
+    .stagger-4{ transition-delay: .24s; }
+
+    @media (prefers-reduced-motion: reduce){
+      .reveal{
+        opacity: 1 !important;
+        transform: none !important;
+        transition: none !important;
+      }
+    }
+
+    /* -----------------------------
+      반응형
+    ----------------------------- */
+    @media (max-width: 920px){
+      .hero-grid{ grid-template-columns:1fr; }
+    }
+    @media (max-width: 768px){
+      .hero h1{ font-size:46px; }
+      .section-title h2{ font-size:46px; }
+      .timeline::before{ left:14px; }
+      .timeline-item{ padding-left:56px; }
+      .dot{ left:6px; }
+      .year{ font-size:30px; }
+      .footer-bg{ height: 150px; }
+    }
+  </style>
+</head>
+
+<body>
+
+  <a class="home-fab" href="/" aria-label="메인 화면으로 이동">
+    <svg class="icon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M3 10.5L12 3l9 7.5"></path>
+      <path d="M5 10v11h14V10"></path>
+      <path d="M9 21v-7h6v7"></path>
+    </svg>
+    <span class="label">홈</span>
+  </a>
+
+  <section class="bg-section hero" id="story">
+    <div class="container">
+      <div class="hero-grid">
+        <div class="reveal stagger-1">
+          <h1>Chamjoeun SF History</h1>
+          <p>끊임없는 도전과 혁신으로 만들어온 참조은SF의 발자취입니다.</p>
+          <div class="hero-divider"></div>
+        </div>
+
+        <div class="hero-card reveal stagger-2">
+          <div class="label">Company Timeline</div>
+          <div class="value">
+            2001년부터 시작된 여정이 2025년까지 이어져 왔습니다.<br/>
+            성장의 이정표를 연도별로 확인해보세요.
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="white-section" id="timeline">
+    <div class="container">
+      <div class="section-title reveal">
+        <div class="kicker">History</div>
+        <h2>Our Milestones</h2>
+        <p>주요 수상, 인증, 설비 고도화, 유통 확장 등 성장의 순간을 담았습니다.</p>
+      </div>
+
+      <div class="timeline">
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2025</div>
+            <div class="year-sub">growth & operation</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>기업지원 종합서비스 대상 기업 선정 (대전지방고용노동청)</li>
+              <li>안전보건업무 전담팀 신설</li>
+              <li>자동화 기계설비 증강</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2024</div>
+            <div class="year-sub">awards & partnership</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>공주시 으뜸납세자 수상</li>
+              <li>2050탄소중립 실천 업무협약 (공주시)</li>
+              <li>출산·육아 우수기업 인증 (충청남도)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2023</div>
+            <div class="year-sub">certification</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>즉석조리식품 HACCP 인증</li>
+              <li>공주시장 표창 (사회복지증진)</li>
+              <li>농림부장관상 표창</li>
+              <li>충청남도 모범납세자 선정 (6년 연속)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2022</div>
+            <div class="year-sub">automation</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>찹쌀떡 자동화 라인 신설</li>
+              <li>공주시 사회복지 유공자 표창</li>
+              <li>식물성크림 HACCP 인증</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2021</div>
+            <div class="year-sub">innovation</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>FSSC 22000 취득</li>
+              <li>실용신안 등록</li>
+              <li>충청남도 유망중소기업 선정</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2020</div>
+            <div class="year-sub">IP & awards</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>특허 등록 (모찌롤 케익 제조 시스템을 이용한 제조 방법)</li>
+              <li>디자인 등록 (포장용 라벨)</li>
+              <li>병무청장 표창</li>
+              <li>공주시 모범납세자 선정</li>
+              <li>하나은행 유망중소기업 지정</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2019</div>
+            <div class="year-sub">haccp</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>초콜릿류 HACCP 인증</li>
+              <li>세종특별시장 표창</li>
+              <li>국무총리 표창</li>
+              <li>벤처기업 확인 (중소벤처기업부)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2018</div>
+            <div class="year-sub">brand expansion</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>공주시청, 디저트 독점생산 및 판매 라이선스 계약</li>
+              <li>베이커리&디저트카페 [MISEUM] 상암 1호점 오픈</li>
+              <li>KIRI 크림치즈 라이센스 취득 및 냉동디저트 독점생산 계약</li>
+              <li>병역지정업체 선정</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2017</div>
+            <div class="year-sub">retail entry</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>CU, GS25, SEVEN11 편의점 입점</li>
+              <li>한국산업기술진흥협의회 기업부설연구소 인증 / 기술보증기금 벤처기업인증</li>
+              <li>참조은 온라인쇼핑몰 오픈</li>
+              <li>대전지방식품의약품안전청장 우수식품안전 관리표창</li>
+              <li>고용노동부장관 우수 산업안전보건 표창</li>
+              <li>중소기업청 경영혁신형 중소기업 인증(MAIN-BIZ)</li>
+              <li>중소기업청 기술혁신형 중소기업 인증(INNO-BIZ)</li>
+              <li>여성기업 인증</li>
+              <li>자본금 30억 증자</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2016</div>
+            <div class="year-sub">haccp & media</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>스낵, 빵류, 떡류 HACCP 인증</li>
+              <li>유니버셜 캐릭터 IP 라이센스 취득</li>
+              <li>식품의약품안전처 홍보영상 제작 기업선정</li>
+              <li>사업자단위과세 적용된 사업장 개설</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2015</div>
+            <div class="year-sub">factory</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>참조은 베이커리 공장 설립</li>
+              <li>떡류 및 빵류 HACCP 인증</li>
+              <li>여성가족부 여성친화기업 인증협약</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2014</div>
+            <div class="year-sub">facility</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>국내 최신 시설의 베이커리 준공</li>
+              <li>㈜참조은에스에프 물류 센터 건축 승인</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2010</div>
+            <div class="year-sub">foundation</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>참조은SF 설립</li>
+              <li>곡물가공식품 등 35건 상품등록 (2건)</li>
+              <li>식혜 등 4건 상품등록 (2건)</li>
+              <li>육류가공식품 등 48건 상품등록</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2009</div>
+            <div class="year-sub">certificate</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>경영혁신형 중소기업 확인서 인증</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2008</div>
+            <div class="year-sub">award</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>전국 영양사 학술대회 입상</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2006</div>
+            <div class="year-sub">start</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>서울푸드 설립</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="timeline-item reveal" style="margin-bottom:0;">
+          <div class="dot" aria-hidden="true"></div>
+          <div class="year-row">
+            <div class="year">2001</div>
+            <div class="year-sub">origin</div>
+          </div>
+          <div class="card">
+            <ul>
+              <li>서울푸드뱅크 설립</li>
+            </ul>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-section footer-bg"></section>
+
+  <script>
+    // ✅ 스크롤 방향에 따라 등장 방향 변경 + 화면 밖이면 리셋(반복)
+    (function () {
+      const targets = document.querySelectorAll('.reveal');
+
+      let lastY = window.scrollY || 0;
+      let scrollDir = 'down';
+
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY || 0;
+        scrollDir = (y > lastY) ? 'down' : 'up';
+        lastY = y;
+      }, { passive: true });
+
+      const reset = (el) => {
+        el.classList.remove('is-visible', 'dir-down', 'dir-up');
+      };
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const el = entry.target;
+
+          if (entry.isIntersecting) {
+            el.classList.remove('is-visible');
+            el.classList.remove('dir-down', 'dir-up');
+
+            el.classList.add(scrollDir === 'down' ? 'dir-down' : 'dir-up');
+
+            requestAnimationFrame(() => {
+              el.classList.add('is-visible');
+            });
+          } else {
+            reset(el);
+          }
+        });
+      }, {
+        threshold: 0.12,
+        rootMargin: '0px 0px -10% 0px'
+      });
+
+      targets.forEach((el) => {
+        reset(el);
+        observer.observe(el);
+      });
+    })();
+  </script>
+
+</body>
+</html>
